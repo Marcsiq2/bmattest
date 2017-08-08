@@ -1,5 +1,5 @@
-CREATE DATABASE bmat;
-USE bmat;
+CREATE DATABASE bmatdb;
+USE bmatdb;
 CREATE TABLE radiostations (
 	name VARCHAR(150) NOT NULL, 
 	PRIMARY KEY (name)
@@ -9,16 +9,19 @@ CREATE TABLE performers (
 	PRIMARY KEY (name)
 	);
 CREATE TABLE songs (
-	name VARCHAR(150) NOT NULL, 
+	title VARCHAR(150) NOT NULL, 
 	performer VARCHAR(150) NOT NULL,
-	PRIMARY KEY (name), 
-	FOREIGN KEY (performer) references performers(name) ON UPDATE cascade,
+	PRIMARY KEY (title), 
+	FOREIGN KEY (performer) references performers(name) ON UPDATE cascade
 	);
+
 CREATE TABLE plays (
-	song VARCHAR (150) NOT NULL,
-	radiostation VARCHAR (150) NOT NULL,
-	start_time datetime NOT NULL,
-	end_time datetime NOT NULL,
-	FOREIGN KEY (song) references songs(name),
-	FOREIGN KEY (radiostation) references radiostations(name)
+	title VARCHAR (150) NOT NULL,
+	channel VARCHAR (150) NOT NULL,
+	start datetime NOT NULL,
+	performer VARCHAR(150) NOT NULL,
+	end datetime NOT NULL,
+	FOREIGN KEY (title) references songs(title),
+	FOREIGN KEY (channel) references radiostations(name),
+	FOREIGN KEY (performer) references performers(name)
 	);
