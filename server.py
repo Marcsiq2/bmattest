@@ -116,7 +116,6 @@ def get_top():
 
 	results = []
 	for item in res:
-		print item
 		for item2 in res_pw: 
 			if item2['title'] == item['title'] and item2['performer'] == item['performer']:
 				item.update(item2)	
