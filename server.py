@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import ast
+import argparse
 from flask import Flask
 from flask import jsonify
 from flask import request
@@ -10,12 +11,20 @@ import mysql.connector
 
 server = Flask(__name__)
 
-cnx = mysql.connector.connect(user= 'bmat',
-	  password= 'bmat',
-	  host= '127.0.0.1',
-	  database= 'bmat_db')
+user = None
+password = None
+host = None
+database = None
+cnx = None
+cursor = None
 
-cursor = cnx.cursor()
+
+def check_performer(performer):
+	check_performer_sql = ("SELECT name FROM performers")
+	cursor.execute(check_performer_sql)
+	if performer not in cursor.fetchall():
+		add_performer_sql = ("INSERT INTO performers (name) VALUES ('%s') ON DUPLICATE KEY UPDATE name = name;") % performer
+		cursor.execute(add_performer_sql) 
 
 
 @server.route('/add_channel', methods=['POST'])
@@ -42,6 +51,7 @@ def add_performer():
 def add_song():
 	add_song_sql = ("INSERT INTO songs (title, performer) VALUES (%(title)s, %(performer)s) ON DUPLICATE KEY UPDATE title = title;")
 	data = request.form
+	check_performer(data['performer'])
 	if not data or not 'title' in data or not 'performer' in data:
 		abort(400)
 	cursor.execute(add_song_sql, data)
@@ -120,7 +130,7 @@ def get_top():
 			if item2['title'] == item['title'] and item2['performer'] == item['performer']:
 				item.update(item2)	
 		results.append(item)
-
+	cnx.commit()
 	return make_response(jsonify({'result':results, 'code':0}), 200)
 
 
@@ -130,4 +140,28 @@ def not_found(error):
     	"The client SHOULD NOT repeat the request without modifications."}), 400)
 
 if __name__ == '__main__':
+
+	parser = argparse.ArgumentParser(description='Bmat Server')
+	parser.add_argument('-H', action="store", dest="mysql_hostname",
+		default="localhost", type=str)
+	parser.add_argument('-U', action="store", dest="mysql_user",
+		default="bmat", type=str)
+	parser.add_argument('-P', action="store", dest="mysql_password",
+		default="bmat", type=str)
+	parser.add_argument('-D', action="store", dest="mysql_database",
+		default="bmat_db", type=str)
+
+	args = parser.parse_args()
+	hostname = args.mysql_hostname
+	user = args.mysql_user
+	password = args.mysql_password
+	database = args.mysql_database
+
+	cnx = mysql.connector.connect(user= user,
+		password= password,
+		host= host,
+		database= database)
+
+	cursor = cnx.cursor()
+
 	server.run(debug=True)
