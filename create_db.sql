@@ -1,5 +1,5 @@
-CREATE DATABASE bmatdb;
-USE bmatdb;
+CREATE DATABASE bmat_db;
+USE bmat_db;
 CREATE TABLE radiostations (
 	name VARCHAR(150) NOT NULL, 
 	PRIMARY KEY (name)
