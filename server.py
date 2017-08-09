@@ -156,7 +156,7 @@ if __name__ == '__main__':
 	parser.add_argument('-P', action="store", dest="mysql_password",
 		default="bmat", type=str)
 	parser.add_argument('-D', action="store", dest="mysql_database",
-		default="bmatdb", type=str)
+		default="bmat_db", type=str)
 
 	args = parser.parse_args()
 	hostname = args.mysql_hostname
