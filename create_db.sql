@@ -25,3 +25,5 @@ CREATE TABLE plays (
 	FOREIGN KEY (channel) references radiostations(name),
 	FOREIGN KEY (performer) references performers(name)
 	);
+
+SHOW tables;

@@ -32,7 +32,7 @@ def add_channel():
 	add_channel_sql = ("INSERT INTO radiostations (name) VALUES (%(name)s) ON DUPLICATE KEY UPDATE name = name;")
 	data = request.form
 	if not data or not 'name' in data:
-		abort(404)
+		abort(400)
 	cursor.execute(add_channel_sql, data)
 	cnx.commit()
 	return make_response(jsonify({}), 200)	
@@ -62,7 +62,7 @@ def add_song():
 def add_play():
 	add_play_sql = ("INSERT INTO plays (title, channel, performer, start, end) VALUES (%(title)s, %(channel)s, %(performer)s, %(start)s, %(end)s);")
 	data = request.form
-	if not data or not 'title' in data:
+	if not data or not 'title' in data or not 'performer' in data or not 'channel' in data or not 'start' in data or not 'end' in data:
 		abort(400)
 	cursor.execute(add_play_sql, data)
 	cnx.commit()
@@ -72,6 +72,8 @@ def add_play():
 def get_channel_plays():
 	get_channel_plays_sql = ("SELECT * FROM plays WHERE channel=%(channel)s AND start > %(start)s AND end < %(end)s")
 	data = request.args
+	if not data or not 'channel' in data or not 'start' in data or not 'end' in data:
+		abort(400)
 	cursor.execute(get_channel_plays_sql, data)
 	res = []
 	for item in cursor.fetchall():
@@ -82,6 +84,8 @@ def get_channel_plays():
 def get_song_plays():
 	get_song_plays_sql = ("SELECT * FROM plays WHERE title=%(title)s AND performer=%(performer)s AND start > %(start)s AND end < %(end)s")
 	data = request.args
+	if not data or not 'title' in data or not 'performer' in data or not 'start' in data or not 'end' in data:
+		abort(400)
 	cursor.execute(get_song_plays_sql, data)
 	res = []
 	for item in cursor.fetchall():
@@ -91,6 +95,9 @@ def get_song_plays():
 @server.route('/get_top', methods=['GET'])
 def get_top():
 	data = request.args
+	if not data or not 'channels' in data or not 'start' in data:
+		abort(400)
+
 	channels = ast.literal_eval(data['channels'])
 	channels_str = '(\'%s\')' % '\', \''.join(map(str, channels))
 	date = datetime.datetime.strptime(data['start'], '%Y-%m-%dT%H:%M:%S')
@@ -149,7 +156,7 @@ if __name__ == '__main__':
 	parser.add_argument('-P', action="store", dest="mysql_password",
 		default="bmat", type=str)
 	parser.add_argument('-D', action="store", dest="mysql_database",
-		default="bmat_db", type=str)
+		default="bmatdb", type=str)
 
 	args = parser.parse_args()
 	hostname = args.mysql_hostname
