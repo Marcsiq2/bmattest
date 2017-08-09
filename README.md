@@ -2,19 +2,20 @@ Bmat Test
 =======
 
 ## Deliverable
-+ Design Choices
++ ***Design Choices***
 
 In order to store the described data, I chose to use a structured database. Using a structured database is not always an advantage, but for this kind of data it's very usefull. I created 4 different tables (radiostations, performers, songs, plays) with just the needed information described in the deliverable. This database can be extended very easily in order to add more information for each Class (song length, performer gender, radiostation country, ...).
 From all structured databases I chose to use MySQL database as it is very easy to scalate, it is open-source, offers high performance and it is known as one of the most secure and reliable database management systems.
 
 For the web service I used Flask for python because it is very simple and easy to prototype micro-framework and it does not require particular tools or libraries.
 
-+ Improvements for use in production
++ ***Improvements for use in production***
   + I would suggest adding a security protocol to query the server.
   + Add a threading model to server simultaneous requests as the current implementation is a single synchronous server on a single thread.
   + Use a distributed and replicated database.
   
-+ Ten million songs and two thousend channels monitoring:
++ ***Ten million songs and two thousend channels monitoring:***
+
 I think that with the current implementation the server would crash, however with the proposed improvements for use in production the server would not have serious problems, despite probably a bit of latency.
 
 
