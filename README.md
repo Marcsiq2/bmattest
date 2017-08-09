@@ -1,7 +1,9 @@
 # bmattest
 Bmat Test
+=======
 
 ## Requirements
+=======
 ```
 mysql-server
 python >= 2.7
@@ -10,6 +12,7 @@ python-mysql.connector
 ```
 
 ## Usage
+=======
 + MySQL DB creation
 ```
 usage: mysql -u <user> -p < create_db.sql
