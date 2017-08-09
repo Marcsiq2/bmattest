@@ -1,7 +1,20 @@
 # bmattest
 Bmat Test
+=========
 
-## Usage
+# Table of contents
+	* [Requirements](##Requirements)
+	* [Usage](##Usage)
+
+##Requirements
+```
+mysql-server
+python >= 2.7
+python-flask
+python-mysql.connector
+
+```
+##Usage
 + MySQL DB creation
 ```
 usage: mysql -u <user> -p < create_db.sql
