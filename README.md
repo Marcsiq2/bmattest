@@ -4,10 +4,9 @@ Bmat Test
 ## Deliverable
 + ***Design Choices***
 
-In order to store the described data, I chose to use a structured database. Using a structured database is not always an advantage, but for this kind of data it's very usefull. I created 4 different tables (radiostations, performers, songs, plays) with just the needed information described in the deliverable. This database can be extended very easily in order to add more information for each Class (song length, performer gender, radiostation country, ...).
-From all structured databases I chose to use MySQL database as it is very easy to scalate, it is open-source, offers high performance and it is known as one of the most secure and reliable database management systems.
+In order to store the described data, I chose to use a structured database. Using a structured database, while not always an advantage, is very useful for this kind of data. I created 4 different tables (radiostations, performers, songs, plays) with just the needed information described in the deliverable. This database can be very easily extended in order to add more information for each Class (song length, performer gender, radiostation country, ...). From all structured databases I chose to use MySQL as it is easily escalable, open-source, offers high performance and it is known as one of the most secure and reliable database management systems.
 
-For the web service I used Flask for python because it is very simple and easy to prototype micro-framework and it does not require particular tools or libraries.
+For the web service I used Flask for python because it is very simple and easy to use for micro-framework prototyping and it does not require particular tools or libraries.
 
 + ***Improvements for use in production***
   + I would suggest adding a security protocol to query the server.
@@ -16,7 +15,7 @@ For the web service I used Flask for python because it is very simple and easy t
   
 + ***Ten million songs and two thousend channels monitoring:***
 
-I think that with the current implementation the server would crash, however with the proposed improvements for use in production the server would not have serious problems, despite probably a bit of latency.
+I think that with the current implementation the server would crash due to overload, however with the proposed improvements for use in production the server would not have serious problems, despite probably having a bit of latency.
 
 
 ## Requirements
