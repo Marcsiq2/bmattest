@@ -18,7 +18,6 @@ optional arguments:
   -U MYSQL_USER      MySQL Server user
   -p MYSQL_PASSWORD  MySQL Server password
   -D MYSQL_DATABASE  MySQL Server database
-
 ```
 + Test
 ```
