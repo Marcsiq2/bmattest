@@ -1,6 +1,14 @@
 # bmattest
 Bmat Test
 
+## Requirements
+```
+mysql-server
+python >= 2.7
+python-flask
+python-mysql.connector
+```
+
 ## Usage
 + MySQL DB creation
 ```
