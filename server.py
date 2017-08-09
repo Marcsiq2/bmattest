@@ -17,6 +17,7 @@ host = None
 database = None
 cnx = None
 cursor = None
+port = None
 
 
 def check_performer(performer):
@@ -149,20 +150,23 @@ def not_found(error):
 if __name__ == '__main__':
 
 	parser = argparse.ArgumentParser(description='Bmat Server')
+	parser.add_argument('-P', action="store", dest="server_port",
+		default=5000, type=int, help="Server Listening Port")
 	parser.add_argument('-H', action="store", dest="mysql_hostname",
-		default="localhost", type=str)
+		default="localhost", type=str, help="MySQL Server host")
 	parser.add_argument('-U', action="store", dest="mysql_user",
-		default="bmat", type=str)
-	parser.add_argument('-P', action="store", dest="mysql_password",
-		default="bmat", type=str)
+		default="bmat", type=str, help="MySQL Server user")
+	parser.add_argument('-p', action="store", dest="mysql_password",
+		default="bmat", type=str, help="MySQL Server password")
 	parser.add_argument('-D', action="store", dest="mysql_database",
-		default="bmat_db", type=str)
+		default="bmat_db", type=str, help="MySQL Server database")
 
 	args = parser.parse_args()
 	hostname = args.mysql_hostname
 	user = args.mysql_user
 	password = args.mysql_password
 	database = args.mysql_database
+	port = args.server_port
 
 	cnx = mysql.connector.connect(user= user,
 		password= password,
@@ -171,4 +175,4 @@ if __name__ == '__main__':
 
 	cursor = cnx.cursor()
 
-	server.run(debug=True)
+	server.run(debug=True, port=port)
